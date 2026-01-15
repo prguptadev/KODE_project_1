@@ -1,7 +1,7 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #111;
-    color: #eee;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1a1a2e; /* Darker background */
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,59 +9,81 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    overflow: hidden; /* Prevent scrollbars */
 }
 
 h1 {
     color: #0ff;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 2.8em;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #0ff;
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    grid-gap: 5px;
-    margin-bottom: 20px;
+    grid-gap: 8px;
+    margin-bottom: 30px;
+    background-color: #2e2e4a; /* Slightly lighter board background */
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    border: 2px solid #0ff;
+    border: none;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2em;
+    font-size: 3em;
     cursor: pointer;
     color: #fff;
-    background-color: #222;
-    transition: background-color 0.3s ease;
+    background-color: #3e3e60;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .cell:hover {
-    background-color: #444;
+    background-color: #5a5a80;
+    transform: scale(1.05);
+}
+
+.cell.X {
+    color: #ff416c; /* Reddish for X */
+}
+
+.cell.O {
+    color: #00bcd4; /* Bluish for O */
 }
 
 #message {
     color: #0ff;
-    font-size: 1.5em;
+    font-size: 1.8em;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 8px #0ff;
 }
 
 #resetButton {
     background-color: #0ff;
-    color: #111;
+    color: #1a1a2e;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.2em;
+    padding: 12px 25px;
+    font-size: 1.3em;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
 }
 
 #resetButton:hover {
     background-color: #0cc;
+    transform: scale(1.05);
 }
 
 /* Sparkle animation */
@@ -76,4 +98,32 @@ h1 {
     50% { transform: scale(1) rotate(0deg); opacity: 1; }
     75% { transform: scale(1.2) rotate(-15deg); opacity: 0.7; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 5px;
+        padding: 8px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5em;
+    }
+
+    #message {
+        font-size: 1.4em;
+    }
+
+    #resetButton {
+        padding: 10px 20px;
+        font-size: 1.1em;
+    }
 }
