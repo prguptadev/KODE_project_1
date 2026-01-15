@@ -1,4 +1,4 @@
 #!/bin/bash
 
-uvicorn app.backend.main:app --reload &
-open http://localhost:8000/welcome
+uvicorn app.backend.main:app --reload --port 8080 &
+open http://localhost:8080/
