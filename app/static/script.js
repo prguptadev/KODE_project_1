@@ -1,9 +1,11 @@
 const board = document.getElementById('board');
 const message = document.getElementById('message');
 const resetButton = document.getElementById('resetButton');
+const aiModeButton = document.getElementById('aiModeButton');
 let currentPlayer = 1;
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let gameActive = true;
+let gameMode = 'human'; // 'human' or 'ai'
 
 const clickSound = new Audio('/static/click.mp3');
 const winSound = new Audio('/static/win.mp3');
@@ -72,6 +74,35 @@ function checkWin() {
     return false; // No win or draw yet
 }
 
+
+function aiMove() {
+    const emptyCells = [];
+    gameBoard.forEach((cell, index) => {
+        if (cell === '') {
+            emptyCells.push(index);
+        }
+    });
+
+    if (emptyCells.length > 0 && gameActive) {
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const index = emptyCells[randomIndex];
+        const playerMark = currentPlayer === 1 ? 'X' : 'O';
+        gameBoard[index] = playerMark;
+        const cellElement = document.querySelector(`[data-index="${index}"]`);
+        cellElement.innerText = playerMark;
+        cellElement.classList.add(playerMark);
+        clickSound.play();
+
+        if (checkWin()) {
+            return;
+        }
+
+        currentPlayer = 1; // Switch back to human player
+        message.innerText = `Player ${currentPlayer}'s turn`;
+    }
+}
+
+
 function cellClick(event) {
     const index = parseInt(event.target.dataset.index);
 
@@ -85,8 +116,14 @@ function cellClick(event) {
         const win = checkWin(); // Check for win/draw
 
         if (gameActive) { // Only switch player if game is still active
-          currentPlayer = currentPlayer === 1 ? 2 : 1;
-          message.innerText = `Player ${currentPlayer}'s turn`;
+            if (gameMode === 'human') {
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                message.innerText = `Player ${currentPlayer}'s turn`;
+            } else { // AI mode
+                currentPlayer = 2; // Switch to AI player
+                message.innerText = `AI's turn`;
+                setTimeout(aiMove, 1000); // Short delay before AI moves
+            }
         }
     }
 }
@@ -95,13 +132,15 @@ function resetGame() {
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     gameActive = true;
     currentPlayer = 1;
-    message.innerText = 'Player 1\'s turn';
+    message.innerText = `Player ${currentPlayer}'s turn`;
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
         cell.innerText = '';
         cell.classList.remove('X', 'O', 'sparkle');
     });
+    aiModeButton.innerText = `Play vs ${gameMode === 'human' ? 'AI' : 'Human'}`;
 }
+
 
 const cells = document.querySelectorAll('.cell');
 cells.forEach(cell => {
@@ -109,5 +148,11 @@ cells.forEach(cell => {
 });
 
 resetButton.addEventListener('click', resetGame);
+
+aiModeButton.addEventListener('click', () => {
+    gameMode = gameMode === 'human' ? 'ai' : 'human';
+    resetGame();
+    message.innerText = `Game mode: ${gameMode === 'human' ? 'Human vs Human' : 'Human vs AI'}`;
+});
 
 resetGame();
