@@ -5,6 +5,10 @@ let currentPlayer = 1;
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let gameActive = true;
 
+const clickSound = new Audio('/static/click.mp3');
+const winSound = new Audio('/static/win.mp3');
+const drawSound = new Audio('/static/draw.mp3');
+
 const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -53,6 +57,7 @@ function checkWin() {
             const winningCells = [document.querySelector(`[data-index="${a}"]`), document.querySelector(`[data-index="${b}"]`), document.querySelector(`[data-index="${c}"]`)];
             applySparkle(winningCells);
             celebrate(); // Confetti on win
+            winSound.play();
             return true; // Indicate win
         }
     }
@@ -61,7 +66,7 @@ function checkWin() {
         message.innerText = 'It\'s a draw!';
         gameActive = false;
         applySparkle(document.querySelectorAll('.cell'));
-        // No confetti on draw
+        drawSound.play();
         return false; // Indicate draw, not win
     }
     return false; // No win or draw yet
@@ -71,8 +76,11 @@ function cellClick(event) {
     const index = parseInt(event.target.dataset.index);
 
     if (gameBoard[index] === '' && gameActive) {
-        gameBoard[index] = currentPlayer === 1 ? 'X' : 'O';
-        event.target.innerText = currentPlayer === 1 ? 'X' : 'O';
+        const playerMark = currentPlayer === 1 ? 'X' : 'O';
+        gameBoard[index] = playerMark;
+        event.target.innerText = playerMark;
+        event.target.classList.add(playerMark);
+        clickSound.play();
         
         const win = checkWin(); // Check for win/draw
 
@@ -91,7 +99,7 @@ function resetGame() {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
         cell.innerText = '';
-        cell.classList.remove('sparkle');
+        cell.classList.remove('X', 'O', 'sparkle');
     });
 }
 
