@@ -11,9 +11,3 @@ async def read_root():
     with open("../frontend/index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
-
-@app.get("/welcome")
-async def read_welcome():
-    with open("../frontend/welcome.html", "r") as f:
-        html_content = f.read()
-    return HTMLResponse(content=html_content, status_code=200)
