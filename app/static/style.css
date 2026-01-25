@@ -1,129 +1,86 @@
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #1a1a2e; /* Darker background */
-    color: #e0e0e0;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    overflow: hidden; /* Prevent scrollbars */
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
 }
 
 h1 {
-    color: #0ff;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.8em;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px #0ff;
+    color: #333;
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    grid-gap: 8px;
-    margin-bottom: 30px;
-    background-color: #2e2e4a; /* Slightly lighter board background */
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    border: none;
-    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3em;
+    font-size: 2em;
     cursor: pointer;
-    color: #fff;
-    background-color: #3e3e60;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
 }
 
 .cell:hover {
-    background-color: #5a5a80;
-    transform: scale(1.05);
+    background-color: #e0e0e0;
 }
 
-.cell.X {
-    color: #ff416c; /* Reddish for X */
+.cell.x {
+    color: #ff6b6b;
 }
 
-.cell.O {
-    color: #00bcd4; /* Bluish for O */
+.cell.o {
+    color: #4ecdc4;
 }
 
 #message {
-    color: #0ff;
-    font-size: 1.8em;
-    text-align: center;
-    margin-bottom: 30px;
-    text-shadow: 0 0 8px #0ff;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+    min-height: 1.5em; /* Ensure space for message */
+}
+
+button {
+    padding: 10px 15px;
+    margin: 0 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 #resetButton {
-    background-color: #0ff;
-    color: #1a1a2e;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.3em;
-    cursor: pointer;
-    border-radius: 30px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
+    background-color: #f44336;
 }
 
 #resetButton:hover {
-    background-color: #0cc;
-    transform: scale(1.05);
+    background-color: #da190b;
 }
 
-/* Sparkle animation */
-.sparkle {
-    animation: sparkle-animation 1s forwards;
-    transform-origin: center;
+#aiModeButton {
+    background-color: #2196F3;
 }
 
-@keyframes sparkle-animation {
-    0% { transform: scale(1) rotate(0deg); opacity: 1; }
-    25% { transform: scale(1.2) rotate(15deg); opacity: 0.7; }
-    50% { transform: scale(1) rotate(0deg); opacity: 1; }
-    75% { transform: scale(1.2) rotate(-15deg); opacity: 0.7; }
-    100% { transform: scale(1) rotate(0deg); opacity: 1; }
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    .board {
-        grid-template-columns: repeat(3, 80px);
-        grid-gap: 5px;
-        padding: 8px;
-    }
-
-    .cell {
-        width: 80px;
-        height: 80px;
-        font-size: 2.5em;
-    }
-
-    #message {
-        font-size: 1.4em;
-    }
-
-    #resetButton {
-        padding: 10px 20px;
-        font-size: 1.1em;
-    }
+#aiModeButton:hover {
+    background-color: #0b7dda;
 }
