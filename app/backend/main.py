@@ -11,3 +11,7 @@ async def read_root():
     with open("./app/frontend/index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
+
+@app.get("/api/hello")
+async def read_item():
+    return {"message": "Hello, World!"}
