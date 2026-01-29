@@ -105,8 +105,8 @@
                     gameActive = false;
                     const winningCells = [document.querySelector(`[data-index="${a}"]`), document.querySelector(`[data-index="${b}"]`), document.querySelector(`[data-index="${c}"]`)];
                     applySparkle(winningCells);
-                    celebrate();
-                    return;
+                    celebrate(); // Confetti on win
+                    return true; // Indicate win
                 }
             }
 
@@ -114,8 +114,10 @@
                 message.innerText = 'It\'s a draw!';
                 gameActive = false;
                 applySparkle(document.querySelectorAll('.cell'));
-                celebrate();
+                // No confetti on draw
+                return false; // Indicate draw, not win
             }
+            return false; // No win or draw yet
         }
 
         function cellClick(event) {
@@ -124,8 +126,10 @@
             if (gameBoard[index] === '' && gameActive) {
                 gameBoard[index] = currentPlayer === 1 ? 'X' : 'O';
                 event.target.innerText = currentPlayer === 1 ? 'X' : 'O';
-                checkWin();
-                if(gameActive){
+                
+                const win = checkWin(); // Check for win/draw
+
+                if (gameActive) { // Only switch player if game is still active
                   currentPlayer = currentPlayer === 1 ? 2 : 1;
                   message.innerText = `Player ${currentPlayer}'s turn`;
                 }
